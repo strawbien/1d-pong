@@ -48,8 +48,12 @@ void clearLeds() {
 
 void drawZones() {
     for (uint8_t i = 0; i < currentZoneSize; i++) {
-        leds[i] = COLOR_ZONE_LEFT;
-        leds[NUM_LEDS - 1 - i] = COLOR_ZONE_RIGHT;
+        // Moitié intérieure (côté centre) = bonus de frappe précoce >= 1 ms : pleine luminosité.
+        // Même condition que le calcul du bonus (earlyFactor >= 0,5).
+        bool bonus = (2 * i >= currentZoneSize - 1);
+        uint8_t scale = bonus ? 255 : ZONE_DIM_SCALE;
+        leds[i] = CRGB(COLOR_ZONE_LEFT).nscale8_video(scale);
+        leds[NUM_LEDS - 1 - i] = CRGB(COLOR_ZONE_RIGHT).nscale8_video(scale);
     }
 }
 

@@ -100,3 +100,5 @@ Broches à éviter pour de futurs ajouts : GPIO 0, 2, 12 et 15 (démarrage), 34 
 - 2026-11-11 : `BALL_INITIAL_DELAY_MS` 23 → 19 ms (+20 % de vitesse). Raison : jeu jugé un peu lent après essai.
 - 2026-11-11 : vidage de la file des boutons (`xQueueReset`) en fin de `prepareServe()` et après l'animation de victoire. Raison : un appui pendant l'animation de point ou le compte à rebours restait en file et donnait un point de pénalité au 1er pas de balle (impression de « 2 points d'un coup »). Bug présent dans le code d'origine.
 - 2026-11-11 : V1 déclarée fonctionnelle (tag `v1.0`) : jeu à 144 LEDs sur ESP32 DevKit, balle à 19 ms, zones 26/13, correction du double point.
+- 2026-11-11 : moitié intérieure des zones (bonus de frappe précoce) à pleine luminosité, reste atténué (`ZONE_DIM_SCALE 110`). Raison : rendre visible où frapper pour accélérer.
+- 2026-11-11 : `BALL_DELAY_MIN` 3 → 1 ms (vitesse max ~+38 %, calcul avec ~4,3 ms d'affichage par pas, *hypothèse non mesurée*). Raison : vitesse max jugée insuffisante.

@@ -42,7 +42,7 @@
 
 // Derived values (scale automatically from BALL_INITIAL_DELAY_MS)
 #define BALL_DELAY_START        BALL_INITIAL_DELAY_MS
-#define BALL_DELAY_MIN          (BALL_INITIAL_DELAY_MS / 5)
+#define BALL_DELAY_MIN          1   // plancher (19/5 = 3 d'origine) ; + ~4,3 ms d'affichage des 144 LEDs
 #define BALL_SPEEDUP_PER_RETURN (BALL_INITIAL_DELAY_MS / 14)
 
 // Early hit bonus: hitting the ball as it enters the zone gives extra speedup
@@ -56,6 +56,7 @@
 #define COLOR_BALL          CRGB::White
 #define COLOR_ZONE_LEFT     CRGB::Blue
 #define COLOR_ZONE_RIGHT    CRGB::Green
+#define ZONE_DIM_SCALE      110     // luminosité de la partie de zone sans bonus (/255) ; la partie bonus est à 255
 #define COLOR_MISS          CRGB::Red
 #define COLOR_WIN_LEFT      CRGB::Blue
 #define COLOR_WIN_RIGHT     CRGB::Green
