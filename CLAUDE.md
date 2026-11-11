@@ -41,7 +41,7 @@ Outils : VS Code et l'extension PlatformIO IDE, ou la CLI `pio`.
 | Élément | Détail |
 |---|---|
 | Microcontrôleur | ESP32 DevKit V1 30 broches (ESP-32D, USB-C), sur carte d'extension à bornier |
-| Ruban | BTF-LIGHTING WS2812B, 1 m, **144 LEDs**, 5 V, ordre des couleurs GRB (*hypothèse, à confirmer au test*) |
+| Ruban | BTF-LIGHTING WS2812B, 1 m, **144 LEDs**, 5 V, ordre des couleurs GRB (confirmé au test du 2026-11-11) |
 | Level shifter | 74AHCT125 (DIP-14) : broche 2 ← GPIO 5, broche 3 → 330 Ω → DIN ; broches 1 et 7 à GND, broche 14 à +5 V |
 | Alimentation | 5 V par connecteur USB-C à bornier (chargeur USB ou powerbank) ; condensateur de 1000 µF sur l'arrivée ; fusible réarmable ~2,5 A prévu |
 | Boutons | 2 boutons d'arcade 24 mm non lumineux, entre la broche et GND (pull-up interne) |
@@ -96,3 +96,4 @@ Broches à éviter pour de futurs ajouts : GPIO 0, 2, 12 et 15 (démarrage), 34 
 - 2026-11-11 : fork GitHub strawbien/1d-pong (remote `origin`), ogermer en `upstream` ; travail sur la branche `v1-esp32dev-144leds`.
 - 2026-11-11 : versions figées `espressif32@~6.9.0` (core Arduino 2.x) et `FastLED@~3.7.8`. Raison : les dernières versions (espressif32 8.0.0, FastLED 3.10.9) ne compilent pas le code d'origine (`ledcSetup` supprimé ; `ClearFlags::BRIGHTNESS` en conflit avec la macro `BRIGHTNESS`).
 - 2026-11-11 : adaptations V1 appliquées (144 LEDs, luminosité 60, `MAX_MILLIAMPS 1500`, balle 23 ms, zones 26/13, env `esp32dev_test` avec `-D HW_TEST`). Vitesse et zones restent des hypothèses à régler en jouant.
+- 2026-11-11 : test matériel (`esp32dev_test`) réussi : ruban OK, ordre GRB confirmé, boutons gauche (GPIO 17) et droit (GPIO 18) OK.
