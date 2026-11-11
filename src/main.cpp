@@ -387,11 +387,38 @@ void gameTask(void* pvParameters) {
 // ======================================================
 // Setup & Loop
 // ======================================================
+#ifdef HW_TEST
+// Mode test matériel (env esp32dev_test) : 5 premières LEDs en R/V/B
+// à faible luminosité, état des boutons sur le port série (1 = repos, 0 = appuyé).
+void setup() {
+    Serial.begin(115200);
+    FastLED.addLeds<LED_TYPE, LED_PIN, COLOR_ORDER>(leds, NUM_LEDS);
+    FastLED.setMaxPowerInVoltsAndMilliamps(5, MAX_MILLIAMPS);
+    FastLED.setBrightness(20);
+    pinMode(BUTTON_LEFT_PIN, INPUT_PULLUP);
+    pinMode(BUTTON_RIGHT_PIN, INPUT_PULLUP);
+    const CRGB motif[3] = { CRGB::Red, CRGB::Green, CRGB::Blue };
+    for (uint8_t i = 0; i < 5; i++) leds[i] = motif[i % 3];
+    FastLED.show();
+    Serial.println("HW_TEST : LEDs 0-4 = R V B R V");
+}
+
+void loop() {
+    static uint32_t dernier = 0;
+    if (millis() - dernier >= 200) {
+        dernier = millis();
+        Serial.printf("gauche=%d droit=%d\n",
+                      digitalRead(BUTTON_LEFT_PIN), digitalRead(BUTTON_RIGHT_PIN));
+    }
+}
+#else
 void setup() {
     Serial.begin(115200);
     delay(200);
 
     FastLED.addLeds<LED_TYPE, LED_PIN, COLOR_ORDER>(leds, NUM_LEDS);
+    // Limite de courant : reste sous la capacité du chargeur USB et du fusible
+    FastLED.setMaxPowerInVoltsAndMilliamps(5, MAX_MILLIAMPS);
     FastLED.setBrightness(BRIGHTNESS);
     clearLeds();
     FastLED.show();
@@ -410,3 +437,4 @@ void setup() {
 void loop() {
     vTaskDelay(pdMS_TO_TICKS(1000));
 }
+#endif
