@@ -76,7 +76,7 @@ Broches à éviter pour de futurs ajouts : GPIO 0, 2, 12 et 15 (démarrage), 34 
 
 ## Feuille de route (idées, à prioriser avec François)
 
-1. **V1 jouable** : adaptations ci-dessus, test matériel, réglage de la vitesse et des zones.
+1. **V1 jouable** (fonctionnelle le 2026-11-11, tag `v1.0`) : adaptations ci-dessus, test matériel, réglage de la vitesse et des zones.
 2. **Son** : buzzer piézo passif (frappe, point, victoire), sur une broche libre et sûre.
 3. **Plusieurs jeux sur le même support** : ajouter un état `MENU` à la machine à états (appui long pour changer de jeu, couleur par jeu) et faire de chaque jeu un module. Candidats :
    - pong (existant) ;
@@ -99,3 +99,4 @@ Broches à éviter pour de futurs ajouts : GPIO 0, 2, 12 et 15 (démarrage), 34 
 - 2026-11-11 : test matériel (`esp32dev_test`) réussi : ruban OK, ordre GRB confirmé, boutons gauche (GPIO 17) et droit (GPIO 18) OK.
 - 2026-11-11 : `BALL_INITIAL_DELAY_MS` 23 → 19 ms (+20 % de vitesse). Raison : jeu jugé un peu lent après essai.
 - 2026-11-11 : vidage de la file des boutons (`xQueueReset`) en fin de `prepareServe()` et après l'animation de victoire. Raison : un appui pendant l'animation de point ou le compte à rebours restait en file et donnait un point de pénalité au 1er pas de balle (impression de « 2 points d'un coup »). Bug présent dans le code d'origine.
+- 2026-11-11 : V1 déclarée fonctionnelle (tag `v1.0`) : jeu à 144 LEDs sur ESP32 DevKit, balle à 19 ms, zones 26/13, correction du double point.
