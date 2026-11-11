@@ -4,7 +4,7 @@
 // Hardware Configuration
 // ======================================================
 #define LED_PIN             5
-#define NUM_LEDS            55
+#define NUM_LEDS            144
 #define LED_TYPE            WS2812B
 #define COLOR_ORDER         GRB
 #define BUTTON_LEFT_PIN     17
@@ -20,7 +20,8 @@
 // ======================================================
 // Global Brightness
 // ======================================================
-#define BRIGHTNESS          255
+#define BRIGHTNESS          60      // réduit pour les tests (255 d'origine)
+#define MAX_MILLIAMPS       1500    // limite FastLED, sous le chargeur USB et le fusible ~2,5 A
 
 // ======================================================
 // Animation Configuration
@@ -30,14 +31,14 @@
 // ======================================================
 // Game Parameters
 // ======================================================
-#define ZONE_SIZE_START     10
-#define ZONE_SIZE_MIN       5
+#define ZONE_SIZE_START     26      // 10 pour 55 LEDs, mis à l'échelle pour 144 (à régler en jouant)
+#define ZONE_SIZE_MIN       13      // 5 pour 55 LEDs (à régler en jouant)
 #define SCORE_TO_WIN        5
 
 // ======================================================
 // Ball Speed Control
 // ======================================================
-#define BALL_INITIAL_DELAY_MS  60    // Main tuning knob for ball speed
+#define BALL_INITIAL_DELAY_MS  23    // Main tuning knob for ball speed (60 × 55 / 144 ≈ 23, à régler en jouant)
 
 // Derived values (scale automatically from BALL_INITIAL_DELAY_MS)
 #define BALL_DELAY_START        BALL_INITIAL_DELAY_MS
