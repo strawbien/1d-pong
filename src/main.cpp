@@ -183,6 +183,10 @@ void prepareServe() {
         vTaskDelay(pdMS_TO_TICKS(200));
     }
     ButtonLED::setOff();  // Ensure off after countdown
+
+    // Oublie les appuis faits pendant l'animation de point et le compte à rebours :
+    // sinon ils sont traités au 1er pas de balle (hors zone) et donnent un point de pénalité.
+    xQueueReset(buttonQueue);
 }
 
 // ======================================================
@@ -375,6 +379,8 @@ void gameTask(void* pvParameters) {
         case STATE_GAME_OVER: {
             PlayerSide winner = (scoreLeft >= SCORE_TO_WIN) ? PLAYER_LEFT : PLAYER_RIGHT;
             showWinAnimation(winner);
+            // Évite qu'un appui pendant l'animation de victoire relance aussitôt une partie
+            xQueueReset(buttonQueue);
             // Reset to first animation after game ends
             animManager.resetToFirst();
             currentState = STATE_IDLE;

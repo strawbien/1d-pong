@@ -98,3 +98,4 @@ Broches à éviter pour de futurs ajouts : GPIO 0, 2, 12 et 15 (démarrage), 34 
 - 2026-11-11 : adaptations V1 appliquées (144 LEDs, luminosité 60, `MAX_MILLIAMPS 1500`, balle 23 ms, zones 26/13, env `esp32dev_test` avec `-D HW_TEST`). Vitesse et zones restent des hypothèses à régler en jouant.
 - 2026-11-11 : test matériel (`esp32dev_test`) réussi : ruban OK, ordre GRB confirmé, boutons gauche (GPIO 17) et droit (GPIO 18) OK.
 - 2026-11-11 : `BALL_INITIAL_DELAY_MS` 23 → 19 ms (+20 % de vitesse). Raison : jeu jugé un peu lent après essai.
+- 2026-11-11 : vidage de la file des boutons (`xQueueReset`) en fin de `prepareServe()` et après l'animation de victoire. Raison : un appui pendant l'animation de point ou le compte à rebours restait en file et donnait un point de pénalité au 1er pas de balle (impression de « 2 points d'un coup »). Bug présent dans le code d'origine.
