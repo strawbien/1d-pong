@@ -59,13 +59,13 @@ Broches à éviter pour de futurs ajouts : GPIO 0, 2, 12 et 15 (démarrage), 34 
 
 ## Adaptations V1 à réaliser (tâches initiales)
 
-- [ ] `platformio.ini` : ajouter un environnement `[env:esp32dev]` (`board = esp32dev`) et en faire l'environnement par défaut (`default_envs = esp32dev`), en gardant `wemos_d1_mini32` pour compatibilité.
-- [ ] `include/config.h` : `NUM_LEDS 144`.
-- [ ] `include/config.h` : `BRIGHTNESS` de 255 → **environ 60** pour les tests.
-- [ ] `main.cpp`, dans `setup()` après `addLeds` : ajouter `FastLED.setMaxPowerInVoltsAndMilliamps(5, 1500);`. Une constante `MAX_MILLIAMPS` dans `config.h` serait préférable. Le but est de rester sous le courant du chargeur USB et du fusible.
-- [ ] Remettre la vitesse à l'échelle : avec 2,6 fois plus de LEDs, `BALL_INITIAL_DELAY_MS 60` rend une traversée environ 2,6 fois plus lente. Point de départ : **~23 ms** (60 × 55 / 144). *Hypothèse, à régler en jouant.*
-- [ ] Zones de frappe : `ZONE_SIZE_START` et `ZONE_SIZE_MIN` (10 et 5 pour 55 LEDs) → essayer **~26 et ~13**. *Hypothèse, à régler en jouant.*
-- [ ] Ajouter un **mode test matériel** activable par un flag de build (par exemple `-D HW_TEST` dans un environnement `[env:esp32dev_test]`). Il allume les 5 premières LEDs en rouge, vert et bleu à faible luminosité, et affiche l'état des boutons dans le moniteur série (1 au repos, 0 appuyé). C'est la première vérification à faire tourner.
+- [x] `platformio.ini` : ajouter un environnement `[env:esp32dev]` (`board = esp32dev`) et en faire l'environnement par défaut (`default_envs = esp32dev`), en gardant `wemos_d1_mini32` pour compatibilité.
+- [x] `include/config.h` : `NUM_LEDS 144`.
+- [x] `include/config.h` : `BRIGHTNESS` de 255 → **environ 60** pour les tests.
+- [x] `main.cpp`, dans `setup()` après `addLeds` : ajouter `FastLED.setMaxPowerInVoltsAndMilliamps(5, 1500);`. Une constante `MAX_MILLIAMPS` dans `config.h` serait préférable. Le but est de rester sous le courant du chargeur USB et du fusible.
+- [x] Remettre la vitesse à l'échelle : avec 2,6 fois plus de LEDs, `BALL_INITIAL_DELAY_MS 60` rend une traversée environ 2,6 fois plus lente. Point de départ : **~23 ms** (60 × 55 / 144). *Hypothèse, à régler en jouant.*
+- [x] Zones de frappe : `ZONE_SIZE_START` et `ZONE_SIZE_MIN` (10 et 5 pour 55 LEDs) → essayer **~26 et ~13**. *Hypothèse, à régler en jouant.*
+- [x] Ajouter un **mode test matériel** activable par un flag de build (par exemple `-D HW_TEST` dans un environnement `[env:esp32dev_test]`). Il allume les 5 premières LEDs en rouge, vert et bleu à faible luminosité, et affiche l'état des boutons dans le moniteur série (1 au repos, 0 appuyé). C'est la première vérification à faire tourner.
 
 ## Points de vigilance dans le code d'origine
 
@@ -93,3 +93,6 @@ Broches à éviter pour de futurs ajouts : GPIO 0, 2, 12 et 15 (démarrage), 34 
 - 2026-10-25 : V1 à coût minimal, boutons de 24 mm non lumineux.
 - 2026-11-11 : ESP32 sur carte d'extension à bornier, breadboard réservée au 74AHCT125 ; bouton gauche sur TX2 (GPIO 17).
 - 2026-11-11 : reprise du code d'ogermer via un fork local, développement avec Claude Code.
+- 2026-11-11 : fork GitHub strawbien/1d-pong (remote `origin`), ogermer en `upstream` ; travail sur la branche `v1-esp32dev-144leds`.
+- 2026-11-11 : versions figées `espressif32@~6.9.0` (core Arduino 2.x) et `FastLED@~3.7.8`. Raison : les dernières versions (espressif32 8.0.0, FastLED 3.10.9) ne compilent pas le code d'origine (`ledcSetup` supprimé ; `ClearFlags::BRIGHTNESS` en conflit avec la macro `BRIGHTNESS`).
+- 2026-11-11 : adaptations V1 appliquées (144 LEDs, luminosité 60, `MAX_MILLIAMPS 1500`, balle 23 ms, zones 26/13, env `esp32dev_test` avec `-D HW_TEST`). Vitesse et zones restent des hypothèses à régler en jouant.
