@@ -38,7 +38,7 @@
 // ======================================================
 // Ball Speed Control
 // ======================================================
-#define BALL_INITIAL_DELAY_MS  23    // Main tuning knob for ball speed (60 × 55 / 144 ≈ 23, à régler en jouant)
+#define BALL_INITIAL_DELAY_MS  19    // Main tuning knob for ball speed (23 = 60 × 55 / 144, puis +20 % de vitesse après essai)
 
 // Derived values (scale automatically from BALL_INITIAL_DELAY_MS)
 #define BALL_DELAY_START        BALL_INITIAL_DELAY_MS

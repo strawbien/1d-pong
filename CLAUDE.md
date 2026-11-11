@@ -97,3 +97,4 @@ Broches à éviter pour de futurs ajouts : GPIO 0, 2, 12 et 15 (démarrage), 34 
 - 2026-11-11 : versions figées `espressif32@~6.9.0` (core Arduino 2.x) et `FastLED@~3.7.8`. Raison : les dernières versions (espressif32 8.0.0, FastLED 3.10.9) ne compilent pas le code d'origine (`ledcSetup` supprimé ; `ClearFlags::BRIGHTNESS` en conflit avec la macro `BRIGHTNESS`).
 - 2026-11-11 : adaptations V1 appliquées (144 LEDs, luminosité 60, `MAX_MILLIAMPS 1500`, balle 23 ms, zones 26/13, env `esp32dev_test` avec `-D HW_TEST`). Vitesse et zones restent des hypothèses à régler en jouant.
 - 2026-11-11 : test matériel (`esp32dev_test`) réussi : ruban OK, ordre GRB confirmé, boutons gauche (GPIO 17) et droit (GPIO 18) OK.
+- 2026-11-11 : `BALL_INITIAL_DELAY_MS` 23 → 19 ms (+20 % de vitesse). Raison : jeu jugé un peu lent après essai.
